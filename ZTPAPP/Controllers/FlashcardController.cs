@@ -1,8 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using projekt.Models;
-using System.Linq;
-using System.Threading.Tasks;
 
 public class FlashcardController : Controller
 {

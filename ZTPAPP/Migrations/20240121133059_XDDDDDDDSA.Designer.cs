@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using projekt.Models;
 
@@ -11,9 +12,11 @@ using projekt.Models;
 namespace ZTPAPP.Migrations
 {
     [DbContext(typeof(WDbContext))]
-    partial class WDbContextModelSnapshot : ModelSnapshot
+    [Migration("20240121133059_XDDDDDDDSA")]
+    partial class XDDDDDDDSA
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -37,22 +40,7 @@ namespace ZTPAPP.Migrations
                     b.ToTable("FlashcardFlashcardSet");
                 });
 
-            modelBuilder.Entity("FlashcardSetTest", b =>
-                {
-                    b.Property<int>("FlashcardSetsId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("TestsId")
-                        .HasColumnType("int");
-
-                    b.HasKey("FlashcardSetsId", "TestsId");
-
-                    b.HasIndex("TestsId");
-
-                    b.ToTable("FlashcardSetTest");
-                });
-
-            modelBuilder.Entity("projekt.Models.Answer", b =>
+            modelBuilder.Entity("ZTPAPP.Models.Answer", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -76,6 +64,52 @@ namespace ZTPAPP.Migrations
                     b.HasIndex("TestId");
 
                     b.ToTable("Answers");
+                });
+
+            modelBuilder.Entity("ZTPAPP.Models.Test", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Type")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Tests");
+                });
+
+            modelBuilder.Entity("ZTPAPP.Models.TestHistory", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<int?>("TestId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("TestName")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("points")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("TestId");
+
+                    b.ToTable("TestsHistories");
                 });
 
             modelBuilder.Entity("projekt.Models.Flashcard", b =>
@@ -111,55 +145,14 @@ namespace ZTPAPP.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.HasKey("Id");
-
-                    b.ToTable("FlashcardSets");
-                });
-
-            modelBuilder.Entity("projekt.Models.Test", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
-
-                    b.Property<string>("Name")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Type")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("Tests");
-                });
-
-            modelBuilder.Entity("projekt.Models.TestHistory", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
-
                     b.Property<int?>("TestId")
-                        .HasColumnType("int");
-
-                    b.Property<string>("TestName")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<int>("points")
                         .HasColumnType("int");
 
                     b.HasKey("Id");
 
                     b.HasIndex("TestId");
 
-                    b.ToTable("TestsHistories");
+                    b.ToTable("FlashcardSets");
                 });
 
             modelBuilder.Entity("projekt.Models.User", b =>
@@ -205,28 +198,13 @@ namespace ZTPAPP.Migrations
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("FlashcardSetTest", b =>
-                {
-                    b.HasOne("projekt.Models.FlashcardSet", null)
-                        .WithMany()
-                        .HasForeignKey("FlashcardSetsId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("projekt.Models.Test", null)
-                        .WithMany()
-                        .HasForeignKey("TestsId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-                });
-
-            modelBuilder.Entity("projekt.Models.Answer", b =>
+            modelBuilder.Entity("ZTPAPP.Models.Answer", b =>
                 {
                     b.HasOne("projekt.Models.Flashcard", "Flashcard")
                         .WithMany()
                         .HasForeignKey("FlashcardId");
 
-                    b.HasOne("projekt.Models.TestHistory", "Test")
+                    b.HasOne("ZTPAPP.Models.TestHistory", "Test")
                         .WithMany("Answers")
                         .HasForeignKey("TestId");
 
@@ -235,21 +213,30 @@ namespace ZTPAPP.Migrations
                     b.Navigation("Test");
                 });
 
-            modelBuilder.Entity("projekt.Models.TestHistory", b =>
+            modelBuilder.Entity("ZTPAPP.Models.TestHistory", b =>
                 {
-                    b.HasOne("projekt.Models.Test", "Test")
+                    b.HasOne("ZTPAPP.Models.Test", "Test")
                         .WithMany("History")
                         .HasForeignKey("TestId");
 
                     b.Navigation("Test");
                 });
 
-            modelBuilder.Entity("projekt.Models.Test", b =>
+            modelBuilder.Entity("projekt.Models.FlashcardSet", b =>
                 {
+                    b.HasOne("ZTPAPP.Models.Test", null)
+                        .WithMany("FlashcardSets")
+                        .HasForeignKey("TestId");
+                });
+
+            modelBuilder.Entity("ZTPAPP.Models.Test", b =>
+                {
+                    b.Navigation("FlashcardSets");
+
                     b.Navigation("History");
                 });
 
-            modelBuilder.Entity("projekt.Models.TestHistory", b =>
+            modelBuilder.Entity("ZTPAPP.Models.TestHistory", b =>
                 {
                     b.Navigation("Answers");
                 });

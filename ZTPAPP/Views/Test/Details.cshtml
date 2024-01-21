@@ -1,0 +1,11 @@
+﻿@{
+}
+<div>
+    <h1>Name:</h1>
+    <p>@ViewBag.Test.Name</p>
+    <h1>Flashcard sets:</h1>
+    @foreach (FlashcardSet flashcardSet in @ViewBag.Test.FlashcardSets)
+    {
+        <p>@flashcardSet.Name</p>
+    }
+</div>

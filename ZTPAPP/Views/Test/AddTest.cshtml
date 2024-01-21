@@ -1,0 +1,27 @@
+﻿@model Test
+@{
+    
+}
+<div class="container">
+    <h1 style="margin-top:20px;">Add Flashcard</h1>
+
+    <form asp-action="AddTest">
+        <div class="col-md-4" style=" margin-top:10px;">
+            <div class="form-group">
+                <label asp-for="Name" class="control-label"></label>
+                <input asp-for="Name" class="form-control" />
+            </div>
+        </div>
+        @if (ViewBag.FlashcardSets != null)
+        {
+            foreach (var FlashcardSet in ViewBag.FlashcardSets)
+            {
+                <input type="checkbox" class="btn-check" style="margin-top:10px;" id="@($"flas{FlashcardSet.Id}")" name="SelectedFlashcardSetsIds" value="@FlashcardSet.Id" />
+                <label class="btn btn-outline-secondary" style="margin-top:10px;" for="@($"flas{FlashcardSet.Id}")">@FlashcardSet.Name</label>
+            }
+        }
+        <div class="form-group">
+            <input type="submit" value="Add" class="btn btn-register text-light" style=" margin-top:10px;" />
+        </div>
+    </form>
+</div>

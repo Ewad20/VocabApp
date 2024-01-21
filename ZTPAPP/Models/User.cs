@@ -2,12 +2,18 @@
 
 namespace projekt.Models
 {
+    public enum mode
+    {
+        easy = 0,
+        hard = 1
+    }
     public class User
     {
         public int Id { get; set; }
         public string Name { get; set; }
         public string Email { get; set; }
         public string Password { get; set; }
+        public mode Mode{ get; set; }
   
         public class Builder
         {
@@ -28,6 +34,10 @@ namespace projekt.Models
             public Builder SetPassword(string password)
             {
                 _user.Password = password;
+                return this;
+            }
+            public Builder SetMode(mode mode) {
+                _user.Mode = mode;
                 return this;
             }
             public User Build()
