@@ -11,8 +11,8 @@ using projekt.Models;
 namespace ZTPAPP.Migrations
 {
     [DbContext(typeof(WDbContext))]
-    [Migration("20240121111856_INIT")]
-    partial class INIT
+    [Migration("20240121232305_JDdd")]
+    partial class JDdd
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -37,6 +37,21 @@ namespace ZTPAPP.Migrations
                     b.HasIndex("FlashcardsId");
 
                     b.ToTable("FlashcardFlashcardSet");
+                });
+
+            modelBuilder.Entity("FlashcardSetTest", b =>
+                {
+                    b.Property<int>("FlashcardSetsId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("TestsId")
+                        .HasColumnType("int");
+
+                    b.HasKey("FlashcardSetsId", "TestsId");
+
+                    b.HasIndex("TestsId");
+
+                    b.ToTable("FlashcardSetTest");
                 });
 
             modelBuilder.Entity("projekt.Models.Flashcard", b =>
@@ -77,6 +92,27 @@ namespace ZTPAPP.Migrations
                     b.ToTable("FlashcardSets");
                 });
 
+            modelBuilder.Entity("projekt.Models.Test", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Type")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Tests");
+                });
+
             modelBuilder.Entity("projekt.Models.User", b =>
                 {
                     b.Property<int>("Id")
@@ -88,6 +124,9 @@ namespace ZTPAPP.Migrations
                     b.Property<string>("Email")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("Mode")
+                        .HasColumnType("int");
 
                     b.Property<string>("Name")
                         .IsRequired()
@@ -113,6 +152,21 @@ namespace ZTPAPP.Migrations
                     b.HasOne("projekt.Models.Flashcard", null)
                         .WithMany()
                         .HasForeignKey("FlashcardsId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("FlashcardSetTest", b =>
+                {
+                    b.HasOne("projekt.Models.FlashcardSet", null)
+                        .WithMany()
+                        .HasForeignKey("FlashcardSetsId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("projekt.Models.Test", null)
+                        .WithMany()
+                        .HasForeignKey("TestsId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
                 });

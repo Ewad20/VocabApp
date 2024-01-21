@@ -12,8 +12,8 @@ using projekt.Models;
 namespace ZTPAPP.Migrations
 {
     [DbContext(typeof(WDbContext))]
-    [Migration("20240121163537_XDDDDDDDSAdsa")]
-    partial class XDDDDDDDSAdsa
+    [Migration("20240121200051_init")]
+    partial class init
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
