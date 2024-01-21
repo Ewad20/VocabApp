@@ -5,7 +5,7 @@
 namespace ZTPAPP.Migrations
 {
     /// <inheritdoc />
-    public partial class init : Migration
+    public partial class Init : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -136,6 +136,25 @@ namespace ZTPAPP.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "Subscribers",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    UserId = table.Column<int>(type: "int", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Subscribers", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Subscribers_Users_UserId",
+                        column: x => x.UserId,
+                        principalTable: "Users",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "Answers",
                 columns: table => new
                 {
@@ -181,6 +200,12 @@ namespace ZTPAPP.Migrations
                 column: "TestsId");
 
             migrationBuilder.CreateIndex(
+                name: "IX_Subscribers_UserId",
+                table: "Subscribers",
+                column: "UserId",
+                unique: true);
+
+            migrationBuilder.CreateIndex(
                 name: "IX_TestsHistories_TestId",
                 table: "TestsHistories",
                 column: "TestId");
@@ -199,7 +224,7 @@ namespace ZTPAPP.Migrations
                 name: "FlashcardSetTest");
 
             migrationBuilder.DropTable(
-                name: "Users");
+                name: "Subscribers");
 
             migrationBuilder.DropTable(
                 name: "TestsHistories");
@@ -209,6 +234,9 @@ namespace ZTPAPP.Migrations
 
             migrationBuilder.DropTable(
                 name: "FlashcardSets");
+
+            migrationBuilder.DropTable(
+                name: "Users");
 
             migrationBuilder.DropTable(
                 name: "Tests");

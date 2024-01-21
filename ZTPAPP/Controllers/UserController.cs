@@ -4,14 +4,17 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using projekt.Models;
 using System.Security.Claims;
+using ZTPAPP.Models;
 
 public class UserController : Controller
 {
     private readonly WDbContext _context;
+    private readonly IConfiguration _configuration;
 
-    public UserController(WDbContext context)
+    public UserController(WDbContext context, IConfiguration configuration)
     {
         _context = context;
+        _configuration = configuration;
     }
 
     [HttpGet]
@@ -21,7 +24,7 @@ public class UserController : Controller
     }
 
     [HttpPost]
-    public IActionResult Register(string name, string email, string password)
+    public IActionResult Register(string name, string email, string password,bool notification)
     {
         var userBuilder = new User.Builder()
             .SetName(name)
@@ -33,6 +36,13 @@ public class UserController : Controller
         {
             _context.Add(user);
             _context.SaveChanges();
+            if (notification)
+            {
+                SubscribeOberver subscribeOberver = new SubscribeOberver(_context,_configuration);
+                Subscriber subscriber = new Subscriber();
+                subscriber.User = user;
+                subscribeOberver.Update(subscriber);
+            }
             return RedirectToAction("Login");
         }
         return View();
