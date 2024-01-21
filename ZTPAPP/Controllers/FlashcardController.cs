@@ -66,7 +66,26 @@ public class FlashcardController : Controller
         }
         return View(flashcard);
     }
+    public async Task<IActionResult> Copy(int? id)
+    {
+        if (id == null)
+        {
+            return NotFound();
+        }
 
+        var flashcard = await _context.Flashcards.FindAsync(id);
+        if (flashcard == null)
+        {
+            return NotFound();
+        }
+
+        Flashcard copy = flashcard.DeepCopy();
+        _context.Add(copy);
+        await _context.SaveChangesAsync();
+
+        var flashcards = await _context.Flashcards.ToListAsync();
+        return RedirectToAction("AllFlashcards");
+    }
     public async Task<IActionResult> Delete(int? id)
     {
         if (id == null)

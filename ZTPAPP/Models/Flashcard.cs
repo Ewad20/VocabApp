@@ -12,7 +12,6 @@ namespace projekt.Models
         public Flashcard DeepCopy()
         {
             Flashcard clone = new Flashcard();
-            clone.Id = Id;
             clone.SourceWord = SourceWord;
             clone.TranslatedWord = TranslatedWord;
 

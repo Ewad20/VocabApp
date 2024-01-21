@@ -20,6 +20,9 @@
                 <form action="@Url.Action("Delete", "Flashcard", new { id = flashcard.Id })" method="get" style="display: inline-block;">
                     <input type="submit" value="Delete" class="btn btn-danger" />
                 </form>
+                <form action="@Url.Action("Copy", "Flashcard", new { id = flashcard.Id })" method="get" style="display: inline-block;">
+                    <input type="submit" value="Copy" class="btn btn-info" />
+                </form>
             </div>
             <div class="flashcard" onclick="this.style.transform = this.style.transform == 'rotateY(180deg)' ? 'rotateY(0deg)' : 'rotateY(180deg)'">
                 <div class="front">
