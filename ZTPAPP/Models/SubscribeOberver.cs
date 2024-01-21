@@ -16,26 +16,26 @@ namespace ZTPAPP.Models
             _configuration = configuration;
         }
 
-        public void Update(Subscriber newUser)
+        public void Update(Subscriber newSubscriber)
         {
-            NotifyObservers(newUser);
-            AddUser(newUser);
+            NotifyObservers(newSubscriber);
+            AddSubscriber(newSubscriber);
         }
 
-        private void AddUser(Subscriber newUser)
+        private void AddSubscriber(Subscriber newSubscriber)
         {
-            _dbContext.Subscribers.Add(newUser);
+            _dbContext.Subscribers.Add(newSubscriber);
             _dbContext.SaveChanges();
         }
 
-        private void NotifyObservers(Subscriber newUser)
+        private void NotifyObservers(Subscriber newSubscriber)
         {
             var otherSubscribers = _dbContext.Subscribers.Include(u=> u.User).ToList();
             EmailSender emailSender = new EmailSender(_configuration);
             foreach (var user in otherSubscribers)
             {
-                Console.WriteLine($"Send to {user.User.Email}: New user {newUser.User.Name}");
-                emailSender.SayHi(user.User.Email, newUser.User.Name);
+                Console.WriteLine($"Send to {user.User.Email}: New user {newSubscriber.User.Name}");
+                emailSender.SayHi(user.User.Email, newSubscriber.User.Name);
             }
         }
     }
