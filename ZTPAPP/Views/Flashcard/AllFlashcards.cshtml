@@ -1,0 +1,35 @@
+﻿@model IEnumerable<projekt.Models.Flashcard>
+
+<h1 style="margin-top:20px;">My Flashcards</h1>
+
+<link rel="stylesheet" href="~/css/flashcard.css" />
+<link rel="stylesheet" href="~/css/buttons.css" />
+
+<div style="margin-bottom: 20px;">
+    <a href="@Url.Action("Addflashcard", "Flashcard")" class="btn btn-add text-light" style="margin-top: 15px; margin-bottom: 15px;">Add New</a>
+</div>
+
+<div class="flashcard-container">
+    @foreach (var flashcard in Model)
+    {
+        <div class="flashcard-block">
+            <div class="flashcard-buttons">
+                <form action="@Url.Action("Edit", "Flashcard", new { id = flashcard.Id })" method="get" style="display: inline-block; margin-right: 10px;">
+                    <input type="submit" value="Edit" class="btn btn-register" />
+                </form>
+                <form action="@Url.Action("Delete", "Flashcard", new { id = flashcard.Id })" method="get" style="display: inline-block;">
+                    <input type="submit" value="Delete" class="btn btn-danger" />
+                </form>
+            </div>
+            <div class="flashcard" onclick="this.style.transform = this.style.transform == 'rotateY(180deg)' ? 'rotateY(0deg)' : 'rotateY(180deg)'">
+                <div class="front">
+                    @flashcard.SourceWord
+                </div>
+                <div class="back">
+                    @flashcard.TranslatedWord
+                </div>
+            </div>
+        </div>
+    }
+
+</div>

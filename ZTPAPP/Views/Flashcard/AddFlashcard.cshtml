@@ -1,0 +1,21 @@
+﻿@model Flashcard
+
+<h1 style="margin-top:20px;">Add Flashcard</h1>
+
+<form asp-action="Addflashcard" method="post">
+    <div class="col-md-4" style=" margin-top:10px;">
+    <div class="form-group">
+        <label asp-for="SourceWord" class="control-label"></label>
+        <input asp-for="SourceWord" class="form-control" />
+    </div>
+    </div>
+    <div class="col-md-4" style=" margin-top:10px;">
+    <div class="form-group">
+        <label asp-for="TranslatedWord" class="control-label"></label>
+        <input asp-for="TranslatedWord" class="form-control" />
+    </div>
+    <div class="form-group">
+            <input type="submit" value="Add" class="btn btn-login text-light" style=" margin-top:10px;" />
+    </div>
+    </div>
+</form>

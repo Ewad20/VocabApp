@@ -1,0 +1,10 @@
+﻿@model Flashcard
+
+<h2>Delete Flashcard</h2>
+
+<form asp-action="Delete">
+    <input type="hidden" asp-for="Id" />
+    <p>Are you sure you want to delete the flashcard <strong>@Model.SourceWord</strong>?</p>
+    <input type="submit" value="Delete" class="btn btn-danger" /> |
+    <a asp-action="AllFlashcards" class="btn btn-secondary">Cancel</a>
+</form>

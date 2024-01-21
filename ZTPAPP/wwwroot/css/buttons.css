@@ -1,0 +1,41 @@
+﻿.btn-register {
+    background-color: #A53860;
+    border: none;
+}
+.btn-register:hover {
+    background-color: lightcoral;
+}
+.btn-login {
+    background-color: #545A5C;
+    border: none;
+}
+.btn-login:hover {
+    background-color: black;
+}
+
+.custom-navbar {
+    background-color: #ADA8B6;
+}
+.btn-add {
+    background-color: #81667A;
+    border: none;
+}
+.btn-add:hover {
+    background-color: lightcoral;
+}
+
+.btn-check + label {
+    background-color: white;
+    border-color: #A53860;
+    color: #A53860;
+}
+
+.btn-details {
+    background-color: #6DA8C7;
+    border:none
+}
+
+    .btn-details:hover {
+        background-color: #001160;
+        color: white;
+    }

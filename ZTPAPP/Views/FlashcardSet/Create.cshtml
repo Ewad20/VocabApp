@@ -1,0 +1,40 @@
+﻿@model projekt.Models.FlashcardSet
+
+@{
+    ViewData["Title"] = "Create";
+}
+
+<h1 style="margin-top:20px;">Create</h1>
+
+<h4>FlashcardSet</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Create">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group mb-2">
+                <label asp-for="Name" class="control-label"></label>
+                <input asp-for="Name" class="form-control" />
+                <span asp-validation-for="Name" class="text-danger"></span>
+            </div>
+
+            @if (ViewBag.Flashcards != null)
+            {
+                foreach (var Flashcard in ViewBag.Flashcards)
+                {
+                    <input type="checkbox" class="btn-check" style="margin-top:10px;" id="@($"flashcard{Flashcard.Id}")" name="SelectedFlashcardIds" value="@Flashcard.Id" />
+                    <label class="btn btn-outline-secondary" style="margin-top:10px;" for="@($"flashcard{Flashcard.Id}")">@Flashcard.SourceWord</label>
+                }
+            }
+
+            <div class="form-group mt-4">
+                <input type="submit" value="Create" class="btn btn-register text-light" />
+                <a asp-action="Index" class="btn btn-login text-light" style="margin-left:10px;">Back to List</a>
+            </div>
+        </form>
+    </div>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

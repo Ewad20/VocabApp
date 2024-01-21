@@ -1,0 +1,74 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Language Learning</title>
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/css/buttons.css" asp-append-version="true" />
+</head>
+<body>
+    <header>
+        <nav class="navbar navbar-expand-sm navbar-toggleable-sm custom-navbar">
+            <div class="container">
+                <a class="navbar-brand text-dark" asp-area="" asp-controller="Home" asp-action="Index">Language Learning</a>
+                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarCollapse" aria-controls="navbarCollapse"
+                        aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarCollapse">
+                    <ul class="navbar-nav mr-auto">
+                        <li class="nav-item">
+                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
+                        </li>
+                    </ul>
+                    <ul class="navbar-nav">
+                        @if (User.Identity.IsAuthenticated)
+                        {
+                           <a class="nav-link text-dark" asp-area="" asp-controller="Flashcard" asp-action="AllFlashcards">Flashcards</a>
+                           <a class="nav-link text-dark" asp-area="" asp-controller="FlashcardSet" asp-action="Index">FlashcardSets</a>
+
+                            <li class="nav-item" style="margin-left:850px">
+                                <form asp-controller="User" asp-action="Logout" method="post">
+                                    <button type="submit" class="btn btn-register text-light">Logout</button>
+                                </form>
+                            </li>
+                           
+                        }
+                        else
+                        {
+                            <li class="nav-item" style="margin-left:1000px">
+                                <form asp-controller="User" asp-action="Register" method="post">
+                                    <button type="submit" class="btn btn-register text-light">Register</button>
+                                </form>
+                            </li>
+                            <li class="nav-item" style="margin-left:10px">
+                                <form asp-controller="User" asp-action="Login" method="post">
+                                    <button type="submit" class="btn btn-login text-light">Login</button>
+                                </form>
+                            </li>
+                        }
+                    </ul>
+                </div>
+            </div>
+        </nav>
+    </header>
+    <div class="container">
+        <main role="main" class="pb-3">
+            @RenderBody()
+        </main>
+    </div>
+
+    <footer class="border-top footer text-muted" style="position: fixed;bottom: 0; left: 0;right: 0; padding: 16px;">
+        <div class="container">
+            &copy; 2024 - Language learning 
+        </div>
+    </footer>
+
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="~/js/site.js" asp-append-version="true"></script>
+    @await RenderSectionAsync("Scripts", required: false)
+</body>
+</html>

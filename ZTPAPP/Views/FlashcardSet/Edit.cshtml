@@ -1,0 +1,44 @@
+﻿@model projekt.Models.FlashcardSet
+
+@{
+    ViewData["Title"] = "Edit";
+}
+
+<h1 style ="margin-top:20px;">Edit</h1>
+
+<h4>FlashcardSet</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Edit">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <input type="hidden" asp-for="Id" />
+            <div class="form-group mb-2">
+                <label asp-for="Name" class="control-label"></label>
+                <input asp-for="Name" class="form-control" />
+                <span asp-validation-for="Name" class="text-danger"></span>
+            </div>
+
+            @if (ViewBag.Flashcards != null)
+            {
+                @foreach (var item in ViewBag.Flashcards)
+                {
+                    <input type="checkbox" class="btn-check" style="margin-top:10px;" id="@($"flashcard{item.Flashcard.Id}")" name="SelectedFlashcardIds" value="@item.Flashcard.Id" @(item.IsSelected ? "checked" : "") />
+                    <label class="btn btn-outline-secondary" style="margin-top:10px;" for="@($"flashcard{item.Flashcard.Id}")">@item.Flashcard.SourceWord</label>
+                }
+
+            }
+
+            <div class="form-group  mt-4">
+                <input type="submit" value="Save" class="btn btn-register text-light" />
+                <a asp-action="Index" class="btn btn-login text-light" style="margin-left:10px;">Back to List</a>
+            </div>
+        </form>
+    </div>
+</div>
+
+
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

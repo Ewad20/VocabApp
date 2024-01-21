@@ -1,0 +1,38 @@
+﻿@model projekt.Models.FlashcardSet
+
+@{
+    ViewData["Title"] = "Details";
+}
+
+<h1 class="mt-4">Details</h1>
+
+<div class="card">
+    <div class="card-body">
+        <h4 class="card-title">FlashcardSet</h4>
+        <hr />
+        <dl class="row">
+            <dt class="col-sm-2">
+                @Html.DisplayNameFor(model => model.Name)
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(model => model.Name)
+            </dd>
+        </dl>
+        <dl class="row">
+            <dt class="col-sm-2">
+                @Html.DisplayNameFor(model => model.Flashcards)
+            </dt>
+            <dd class="col-sm-10">
+                @foreach (var flashcard in Model.Flashcards)
+                {
+                    <span class="badge bg-secondary fs-6 p-2 m-1"> @flashcard.SourceWord </span>
+                }
+            </dd>
+        </dl>
+    </div>
+</div>
+
+<div class="mt-3">
+    <a asp-action="Edit" asp-route-id="@Model?.Id" class="btn btn-register text-light me-2">Edit</a>
+    <a asp-action="Index" class="btn btn-details">Back to List</a>
+</div>

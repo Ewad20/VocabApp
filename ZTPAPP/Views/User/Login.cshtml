@@ -1,0 +1,18 @@
+﻿@model projekt.Models.User
+
+<h1 style="margin-top:20px;">Login</h1>
+
+<form asp-action="Login" method="post" class="mt-2">
+
+    <div class="col-md-4" style=" margin-top:10px;">
+        <label for="Email" class="form-label">Email</label>
+        <input asp-for="Email" type="email" class="form-control" id="Email" placeholder="Email" required>
+        <span asp-validation-for="Email" class="text-danger"></span>
+    </div>
+    <div class="col-md-4" style=" margin-top:10px;">
+        <label for="Password" class="form-label">Password</label>
+        <input asp-for="Password" type="password" class="form-control" id="Password" placeholder="Password" required>
+        <span asp-validation-for="Password" class="text-danger"></span>
+    </div>
+    <button type="submit" class="btn btn-login text-light" style=" margin-top:10px;">Login</button>
+</form>

@@ -1,0 +1,29 @@
+﻿@{
+    ViewData["Title"] = "Home Page";
+}
+
+<div class="box-container">
+    <div class="header-box" style="border: 1px solid #ccc; padding: 50px; background-color: #FFEEDB; margin-top:10px;">
+        <h1>Find the right exam for you</h1>
+        <p class="lead">Enhance your linguistic skills with us. Our complimentary language learning program offers a valuable opportunity for personal and intellectual growth.</p>
+    </div>
+
+    <div class="row">
+        <div class="col-md-6" style="margin-top: 60px;">
+            <h2>Learning mode</h2>
+            <p>
+                Don't know Polish/English? Just learn it in a very fast way!
+            </p>
+            <p>
+                <a href="@Url.Action("Addflashcard", "Flashcard")" class="btn btn-success text-light">Begin test</a>
+            </p>
+        </div>
+        <div class="col-md-6" style="margin-top: 60px;">
+            <h2>Test mode</h2>
+            <p>Test your mad skills.</p>
+            <p>
+                <a href="@Url.Action("Addflashcard", "Flashcard")" class="btn btn-success text-light">Begin test</a>
+            </p>
+        </div>
+    </div>
+</div>
