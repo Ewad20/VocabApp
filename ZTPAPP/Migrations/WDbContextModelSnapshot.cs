@@ -52,6 +52,25 @@ namespace ZTPAPP.Migrations
                     b.ToTable("FlashcardSetTest");
                 });
 
+            modelBuilder.Entity("ZTPAPP.Models.Subscriber", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<int>("UserId")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("UserId")
+                        .IsUnique();
+
+                    b.ToTable("Subscribers");
+                });
+
             modelBuilder.Entity("projekt.Models.Answer", b =>
                 {
                     b.Property<int>("Id")
@@ -220,6 +239,17 @@ namespace ZTPAPP.Migrations
                         .IsRequired();
                 });
 
+            modelBuilder.Entity("ZTPAPP.Models.Subscriber", b =>
+                {
+                    b.HasOne("projekt.Models.User", "User")
+                        .WithOne("Subscription")
+                        .HasForeignKey("ZTPAPP.Models.Subscriber", "UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("User");
+                });
+
             modelBuilder.Entity("projekt.Models.Answer", b =>
                 {
                     b.HasOne("projekt.Models.Flashcard", "Flashcard")
@@ -252,6 +282,11 @@ namespace ZTPAPP.Migrations
             modelBuilder.Entity("projekt.Models.TestHistory", b =>
                 {
                     b.Navigation("Answers");
+                });
+
+            modelBuilder.Entity("projekt.Models.User", b =>
+                {
+                    b.Navigation("Subscription");
                 });
 #pragma warning restore 612, 618
         }

@@ -1,4 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using ZTPAPP.Models;
 
 namespace projekt.Models
 {
@@ -10,6 +11,7 @@ namespace projekt.Models
         public DbSet<Test> Tests { get; set; }
         public DbSet<TestHistory> TestsHistories { get; set; }
         public DbSet<Answer> Answers { get; set; }
+        public DbSet<Subscriber> Subscribers { get; set; }
         public WDbContext(DbContextOptions options) : base(options)
         {
             
@@ -29,7 +31,11 @@ namespace projekt.Models
                 .HasMany(e => e.Answers)
                 .WithOne(e => e.Test);
             modelBuilder.Entity<Answer>()
-                .HasOne(e => e.Flashcard);  
+                .HasOne(e => e.Flashcard);
+            modelBuilder.Entity<User>()
+                .HasOne(u => u.Subscription)
+                .WithOne(s => s.User)
+                .HasForeignKey<Subscriber>(s => s.UserId);
         }
     }
 }

@@ -1,4 +1,5 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using ZTPAPP.Models;
 
 namespace projekt.Models
 {
@@ -14,7 +15,7 @@ namespace projekt.Models
         public string Email { get; set; }
         public string Password { get; set; }
         public mode Mode{ get; set; }
-  
+        public Subscriber? Subscription { get; set; }
         public class Builder
         {
             private readonly User _user = new User();
