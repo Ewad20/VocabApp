@@ -9,6 +9,7 @@ namespace projekt.Models
         public DbSet<Flashcard> Flashcards { get; set; }
         public DbSet<FlashcardSet> FlashcardSets { get; set; }
         public DbSet<Test> Tests { get; set; }
+        public DbSet<Subscriber> Subscribers { get; set; }
         public WDbContext(DbContextOptions options) : base(options)
         {
             
@@ -20,7 +21,11 @@ namespace projekt.Models
                 .WithMany(e => e.Flashcards);
             modelBuilder.Entity<Test>()
                 .HasMany(e => e.FlashcardSets)
-                .WithMany(e => e.Tests);  
+                .WithMany(e => e.Tests);
+            modelBuilder.Entity<User>()
+                .HasOne(u => u.Subscription)
+                .WithOne(s => s.User)
+                .HasForeignKey<Subscriber>(s => s.UserId);
         }
     }
 }

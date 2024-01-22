@@ -34,4 +34,26 @@ namespace ZTPAPP.Models
             client.Send(mailMessage);
         }
     }
+    public class LoggingDecorator : EmailSender
+    {
+        public LoggingDecorator(IConfiguration configuration) : base(configuration)
+        {
+        }
+
+        public new void SayHi(string toEmail, string name)
+        {
+            string logMessage = $"[{DateTime.Now}] Email sent to: {toEmail}, Subject: {name}";
+            LogToFile(logMessage);
+
+            base.SayHi(toEmail, name);
+        }
+
+        private void LogToFile(string message)
+        {
+            using (StreamWriter writer = new StreamWriter("C:\\Users\\Jan\\source\\repos\\JanuaryDecember\\email_log.txt"))
+            {
+                writer.WriteLine(message);
+            }
+        }
+    }
 }

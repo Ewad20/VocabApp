@@ -5,7 +5,7 @@
 namespace ZTPAPP.Migrations
 {
     /// <inheritdoc />
-    public partial class Init : Migration
+    public partial class JDdd : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -116,26 +116,6 @@ namespace ZTPAPP.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "TestsHistories",
-                columns: table => new
-                {
-                    Id = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    TestName = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    TestId = table.Column<int>(type: "int", nullable: true),
-                    points = table.Column<int>(type: "int", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_TestsHistories", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_TestsHistories_Tests_TestId",
-                        column: x => x.TestId,
-                        principalTable: "Tests",
-                        principalColumn: "Id");
-                });
-
-            migrationBuilder.CreateTable(
                 name: "Subscribers",
                 columns: table => new
                 {
@@ -154,41 +134,6 @@ namespace ZTPAPP.Migrations
                         onDelete: ReferentialAction.Cascade);
                 });
 
-            migrationBuilder.CreateTable(
-                name: "Answers",
-                columns: table => new
-                {
-                    Id = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    TestId = table.Column<int>(type: "int", nullable: true),
-                    FlashcardId = table.Column<int>(type: "int", nullable: true),
-                    GivenAnswer = table.Column<string>(type: "nvarchar(max)", nullable: true)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Answers", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_Answers_Flashcards_FlashcardId",
-                        column: x => x.FlashcardId,
-                        principalTable: "Flashcards",
-                        principalColumn: "Id");
-                    table.ForeignKey(
-                        name: "FK_Answers_TestsHistories_TestId",
-                        column: x => x.TestId,
-                        principalTable: "TestsHistories",
-                        principalColumn: "Id");
-                });
-
-            migrationBuilder.CreateIndex(
-                name: "IX_Answers_FlashcardId",
-                table: "Answers",
-                column: "FlashcardId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_Answers_TestId",
-                table: "Answers",
-                column: "TestId");
-
             migrationBuilder.CreateIndex(
                 name: "IX_FlashcardFlashcardSet_FlashcardsId",
                 table: "FlashcardFlashcardSet",
@@ -204,19 +149,11 @@ namespace ZTPAPP.Migrations
                 table: "Subscribers",
                 column: "UserId",
                 unique: true);
-
-            migrationBuilder.CreateIndex(
-                name: "IX_TestsHistories_TestId",
-                table: "TestsHistories",
-                column: "TestId");
         }
 
         /// <inheritdoc />
         protected override void Down(MigrationBuilder migrationBuilder)
         {
-            migrationBuilder.DropTable(
-                name: "Answers");
-
             migrationBuilder.DropTable(
                 name: "FlashcardFlashcardSet");
 
@@ -227,19 +164,16 @@ namespace ZTPAPP.Migrations
                 name: "Subscribers");
 
             migrationBuilder.DropTable(
-                name: "TestsHistories");
-
-            migrationBuilder.DropTable(
                 name: "Flashcards");
 
             migrationBuilder.DropTable(
                 name: "FlashcardSets");
 
             migrationBuilder.DropTable(
-                name: "Users");
+                name: "Tests");
 
             migrationBuilder.DropTable(
-                name: "Tests");
+                name: "Users");
         }
     }
 }
