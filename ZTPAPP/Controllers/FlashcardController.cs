@@ -1,14 +1,31 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using projekt.Models;
+using ZTPAPP.Interfaces;
 
+public class DeepCopyStrategy : ICopyStrategy
+{
+    public Flashcard Copy(Flashcard original)
+    {
+        return original.DeepCopy();
+    }
+}
+
+public class ShallowCopyStrategy : ICopyStrategy
+{
+    public Flashcard Copy(Flashcard original)
+    {
+        return original.ShallowCopy();
+    }
+}
 public class FlashcardController : Controller
 {
     private readonly WDbContext _context;
-
+    private readonly ICopyStrategy _copyStrategy;
     public FlashcardController(WDbContext context)
     {
         _context = context;
+        _copyStrategy = new DeepCopyStrategy();
     }
     public async Task<IActionResult> AllFlashcards()
     {
@@ -79,7 +96,7 @@ public class FlashcardController : Controller
             return NotFound();
         }
 
-        Flashcard copy = flashcard.DeepCopy();
+        Flashcard copy = _copyStrategy.Copy(flashcard);
         _context.Add(copy);
         await _context.SaveChangesAsync();
 

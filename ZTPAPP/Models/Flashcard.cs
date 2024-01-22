@@ -17,5 +17,10 @@ namespace projekt.Models
 
             return clone;
         }
+
+        internal Flashcard ShallowCopy()
+        {
+            return (Flashcard)this.MemberwiseClone();
+        }
     }
 }
