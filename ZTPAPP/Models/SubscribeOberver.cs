@@ -31,7 +31,7 @@ namespace ZTPAPP.Models
         private void NotifyObservers(Subscriber newSubscriber)
         {
             var otherSubscribers = _dbContext.Subscribers.Include(u=> u.User).ToList();
-            LoggingDecorator emailSender = new LoggingDecorator(_configuration);
+            EmailSender emailSender = new LoggingDecorator(_configuration);
             foreach (var user in otherSubscribers)
             {
                 Console.WriteLine($"Send to {user.User.Email}: New user {newSubscriber.User.Name}");

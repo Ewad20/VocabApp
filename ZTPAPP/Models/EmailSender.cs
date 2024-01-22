@@ -19,7 +19,7 @@ namespace ZTPAPP.Models
             client.Credentials = new NetworkCredential(_configuration.GetValue<string>("EmailService:login"), _configuration.GetValue<string>("EmailService:password"));
         }
 
-        public void SayHi(string toEmail, string name)
+        public virtual void SayHi(string toEmail, string name)
         {
             // Create email message
             MailMessage mailMessage = new MailMessage();
@@ -40,7 +40,8 @@ namespace ZTPAPP.Models
         {
         }
 
-        public new void SayHi(string toEmail, string name)
+        override
+        public void SayHi(string toEmail, string name)
         {
             string logMessage = $"[{DateTime.Now}] Email sent to: {toEmail}, Subject: {name}";
             LogToFile(logMessage);
