@@ -11,15 +11,15 @@ using projekt.Models;
 namespace ZTPAPP.Migrations
 {
     [DbContext(typeof(WDbContext))]
-    [Migration("20240121235729_JDdd")]
-    partial class JDdd
+    [Migration("20240122093346_Init1")]
+    partial class Init1
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("ProductVersion", "8.0.1")
+                .HasAnnotation("ProductVersion", "7.0.15")
                 .HasAnnotation("Relational:MaxIdentifierLength", 128);
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);

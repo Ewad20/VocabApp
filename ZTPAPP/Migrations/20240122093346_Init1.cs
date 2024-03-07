@@ -5,7 +5,7 @@
 namespace ZTPAPP.Migrations
 {
     /// <inheritdoc />
-    public partial class JDdd : Migration
+    public partial class Init1 : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
